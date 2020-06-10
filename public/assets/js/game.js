@@ -1,9 +1,12 @@
 const socket = io();
 
 const startEl = document.querySelector('#start');
-const chatWrapperEl = document.querySelector('#chat-wrapper');
 const usernameForm = document.querySelector('#username-form');
-const messageForm = document.querySelector('#message-form');
+
+const gamefield = document.querySelector('#game-field');
+const board = document.querySelector('#gamingboard');
+
+
 
 let username = null;
 
@@ -16,16 +19,7 @@ const addNoticeToChat = (notice) => {
 	document.querySelector('#messages').appendChild(noticeEl);
 }
 
-const addMessageToChat = (msg, ownMsg = false) => {
-	const msgEl = document.createElement('li');
-	msgEl.classList.add('list-group-item', 'message');
-	msgEl.classList.add(ownMsg ? 'list-group-item-primary' : 'list-group-item-secondary');
 
-	const username = ownMsg ? 'You' : msg.username;
-	msgEl.innerHTML = `<span class="user">${username}</span>: ${msg.content}`;
-
-	document.querySelector('#messages').appendChild(msgEl);
-}
 
 const updateOnlineUsers = (users) => {
 	document.querySelector('#online-users').innerHTML = users.map(user => `<li class="user">${user}</li>`).join("");
@@ -41,7 +35,7 @@ usernameForm.addEventListener('submit', e => {
 
 		if (status.joinChat) {
 			startEl.classList.add('hide');
-			chatWrapperEl.classList.remove('hide');
+			gamefield.classList.remove('hide');
 
 			updateOnlineUsers(status.onlineUsers);
 		}
@@ -71,6 +65,3 @@ socket.on('user-disconnected', (username) => {
 	addNoticeToChat(`${username} left the chat 😢...`);
 });
 
-socket.on('chatmsg', (msg) => {
-	addMessageToChat(msg);
-});

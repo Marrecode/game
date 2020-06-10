@@ -12,28 +12,26 @@
 
 <body>
 	<div id="app">
+		
 		<div id="start" class="container">
+			<img class="img-virus" src="./assets/images/virus.jpg" alt="Virus">
+			<h1>Kill em</h1>
+			
 			<form id="username-form">
 				<div class="form-group">
-					<input type="text" id="username" class="form-control form-control-lg" required placeholder="Who art thou'?">
+					<input type="text" id="username" class="form-control form-control-lg" required placeholder="Enter username?">
 				</div>
 
-				<button type="submit" class="btn btn-primary">Connect!</button>
+				<button type="submit" class="btn btn-primary">Join game!!</button>
 			</form><!-- /#username-form -->
 		</div><!-- /#start -->
 
-		<div id="chat-wrapper" class="hide">
-			<div id="chat">
-				<div id="message-wrapper">
-					<ul id="messages" class="list-group">
-						<!-- <li class="list-group-item list-group-item-secondary">Agneta: Hej Bengt!</li>
-						<li class="list-group-item list-group-item-secondary">Bengt: Amen tjena Agneta, läääääget?</li>
-						<li class="list-group-item list-group-item-primary">You: Alltså ni två, get a room.. 🤦‍♀️</li> -->
-					</ul>
-				</div><!-- /#message-wrapper -->
-
-				
-			</div><!-- /#chat -->
+		<div id="game-field" class="hide">
+			<div id="gamingboard">
+				<h2>Play the game</h2>
+				<div id="play">
+				</div>							
+			</div>
 
 			<div id="users">
 				<h2>Users online</h2>
@@ -43,6 +41,6 @@
 	</div><!-- /#app -->
 
 	<script src="/socket.io/socket.io.js"></script>
-	<script src="/assets/js/chat.js"></script>
+	<script src="/assets/js/game.js"></script>
 </body>
 </html>
