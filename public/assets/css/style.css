@@ -1,0 +1,69 @@
+#app {
+	background-color: aliceblue;
+	height: 100vh;
+	width: 100vw;
+}
+
+.hide {
+	display: none !important;
+}
+
+#start {
+	display: flex;
+	height: 100vh;
+	align-items: center;
+}
+
+#username-form {
+	margin: 0 auto;
+	text-align: center;
+}
+
+#chat-wrapper {
+	display: flex;
+	height: 100vh;
+}
+
+#chat {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	border-right: 1px solid #555;
+}
+
+#chat .form-group {
+	flex-grow: 1;
+	display: flex;
+}
+
+#chat .form-group #message {
+	flex-grow: 1;
+}
+
+#users {
+	flex-basis: 20%;
+}
+
+#users h2 {
+	background-color: cornflowerblue;
+	padding: 0.5rem 0.75rem;
+	color: white;
+}
+
+#users ul {
+	margin: 0;
+	padding: 0.5rem 0.75rem;
+	list-style: none;
+}
+
+#message-wrapper {
+	flex-grow: 1;
+}
+
+#messages li .user {
+	font-weight: bold;
+}
+
+#messages .notice {
+	font-style: italic;
+}
