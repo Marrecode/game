@@ -1,11 +1,12 @@
 const socket = io();
 
+
+
 const startEl = document.querySelector('#start');
 const usernameForm = document.querySelector('#username-form');
-
 const gamefield = document.querySelector('#game-field');
 const board = document.querySelector('#gamingboard');
-
+const image = document.getElementById('playimg');
 
 
 let username = null;
@@ -19,11 +20,20 @@ const addNoticeToChat = (notice) => {
 	document.querySelector('#messages').appendChild(noticeEl);
 }
 
-
-
 const updateOnlineUsers = (users) => {
 	document.querySelector('#online-users').innerHTML = users.map(user => `<li class="user">${user}</li>`).join("");
 }
+
+const randomPosition = (target) => {
+	image.style.top = target.width + "px";
+	image.style.left = target.height + "px";
+}
+
+image.addEventListener('click', e => {
+	console.log('hej');
+	socket.emit('user-click', username)
+	console.log('hej', username);
+})
 
 // get username from form and emit `register-user`-event to server
 usernameForm.addEventListener('submit', e => {
@@ -64,4 +74,11 @@ socket.on('new-user-connected', (username) => {
 socket.on('user-disconnected', (username) => {
 	addNoticeToChat(`${username} left the chat 😢...`);
 });
+
+socket.on('user-click', (target) => {
+	randomPosition(target)
+});
+
+
+
 

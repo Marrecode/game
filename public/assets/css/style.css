@@ -54,6 +54,7 @@ h1, h2, h3, h4, h5, h6 {
 	justify-content: space-between;
 }
 
+
 #gamingboard {
 	margin-left: 3rem;
 	margin-right: 3rem;
@@ -63,7 +64,16 @@ h1, h2, h3, h4, h5, h6 {
 
 #play {
 	background-color: white;
-	height: 60vh;
+	height: 400px;
+	width: 400px;
+	position: relative;
+}
+
+#playimg {
+	width: 2%;
+	position: absolute;
+	top: 200px;
+	left: 200px;
 }
 
 #chat .form-group {
