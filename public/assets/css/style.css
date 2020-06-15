@@ -1,5 +1,5 @@
 #app {
-	background-color: yellowgreen;
+	background-color: rgb(111, 119, 95);
 	height: 100vh;
 	width: 100vw;
 }
@@ -63,14 +63,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #play {
-	background-color: white;
-	height: 400px;
-	width: 400px;
+	background-color: #6a866a;
+	height: 550px;
+	width: 780px;
 	position: relative;
+	margin: auto;
 }
 
 #playimg {
-	width: 2%;
+	width: 9%;
 	position: absolute;
 	top: 200px;
 	left: 200px;

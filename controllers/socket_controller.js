@@ -62,8 +62,8 @@ function usersClick(username) {
 		console.log(username, "clicked")
 
 		const click = {
-			width: randomPosition(400),
-			height: randomPosition(400)
+			width: randomPosition(500),
+			height: randomPosition(700)
 		}
 
 		// Emit new image
