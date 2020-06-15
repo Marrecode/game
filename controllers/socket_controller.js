@@ -2,8 +2,17 @@
  * Socket Controller
  */
 
-const debug = require('debug')('09-simple-chat:socket_controller');
+const debug = require('debug')('game:socket_controller');
+
+let io = null;
 const users = {};
+
+let game = {
+    players: {},
+    playedRounds: 0,
+    score: {},
+    reaction: {}
+}
 
 /**
  * Get usernames of online users
@@ -11,6 +20,24 @@ const users = {};
 function getOnlineUsers() {
 	return Object.values(users);
 }
+
+//start new game
+function startNewGame(socket) {
+    console.log('creating one game from user: ', users[socket.id]);
+        
+    if (game.playedRounds < 10) {
+        socket.emit('get-available-space', socket.id);
+        console.log('Played rounds: ', game.playedRounds)
+    } else {
+        io.emit('game-over', game.players, game.score);
+        game.playedRounds = 0;
+    
+        console.log("game over");
+        return;
+    }
+
+};
+
 
 /**
  * Handle user disconnecting
@@ -27,6 +54,36 @@ function handleUserDisconnect() {
 	delete users[this.id];
 }
 
+function randomPosition (range) {
+	return Math.floor(Math.random() * range)
+};
+
+function usersClick(username) {
+		console.log(username, "clicked")
+
+		const click = {
+			width: randomPosition(400),
+			height: randomPosition(400)
+		}
+
+		// Emit new image
+		io.emit('user-click', click);
+}
+
+function checkUsersOnline(socket) {
+    if (Object.keys(users).length === 2) {
+        game.score[socket.id] = 0;
+
+        io.emit('create-game-page');
+        
+        console.log(users[socket.id] + ' started the game');
+        console.log('players of the game: ', game.players);
+
+        startNewGame(socket);
+    } else {
+        return;
+    }
+}
 
 
 /**
@@ -41,6 +98,8 @@ function handleRegisterUser(username, callback) {
 		onlineUsers: getOnlineUsers(),
 	});
 
+	checkUsersOnline(this);
+
 	// broadcast to all connected sockets EXCEPT ourselves
 	this.broadcast.emit('new-user-connected', username);
 
@@ -50,10 +109,11 @@ function handleRegisterUser(username, callback) {
 
 module.exports = function(socket) {
 	// this = io
+	io = this;
 	debug(`Client ${socket.id} connected!`);
 
-	socket.on('disconnect', handleUserDisconnect);
-
 	
+	socket.on('disconnect', handleUserDisconnect);
+	socket.on('user-click', usersClick);
 	socket.on('register-user', handleRegisterUser);
 }

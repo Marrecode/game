@@ -96,6 +96,13 @@ h1, h2, h3, h4, h5, h6 {
 	color: white;
 }
 
+#waiting {
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
 #users ul {
 	margin: 0;
 	padding: 0.5rem 0.75rem;

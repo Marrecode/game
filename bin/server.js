@@ -36,28 +36,6 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 
-
-const randomPosition = (range) => {
-	return Math.floor(Math.random() * range)
-};
-
-io.on("connection", (socket) => {
-
-  
-	socket.on('user-click', (username) => {
-		console.log(username, "clicked")
-
-		const click = {
-			width: randomPosition(400),
-			height: randomPosition(400)
-		}
-
-		// Emit new image
-		io.emit('user-click', click);
-
-	});
-});
-
 /**
  * Normalize a port into a number, string, or false.
  */
