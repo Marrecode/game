@@ -8,6 +8,12 @@ const image = document.getElementById('playimg');
 const waitingRoom = document.querySelector('#waiting');
 
 let username = null;
+let timer = null;
+
+let playersInfo = {
+    id: null,
+    reactiontime: null,
+};
 
 
 
@@ -16,11 +22,15 @@ const addNoticeToChat = (notice) => {
 	noticeEl.classList.add('list-group-item', 'list-group-item-light', 'notice');
 
 	noticeEl.innerHTML = notice;
-
-	document.querySelector('#messages').appendChild(noticeEl);
 }
 
 const showWaitingRoom = () => {
+    waitingRoom.classList.add('hide');
+    gamefield.classList.remove('hide');
+}
+
+//fixa
+const closeTheRoom = () => {
     waitingRoom.classList.add('hide');
     gamefield.classList.remove('hide');
 }
@@ -29,9 +39,19 @@ const updateOnlineUsers = (users) => {
 	document.querySelector('#online-users').innerHTML = users.map(user => `<li class="user">${user}</li>`).join("");
 }
 
+const updateScore = (scoreboard) => {
+    document.querySelector('#score').innerHTML = Object.entries(scoreboard).map(([key, value]) => {
+        console.log(`${key}: ${value}`)
+        return `<li class="list-item users">${key}: ${value}</li>`
+    }).join('');
+};
+
+
+//
 
 const randomClick = (clickDelay) => {
 	setTimeout(() => {
+		timer = Date.now();
 		randomPosition(clickDelay.click)
 	}, clickDelay.delay);
 }
@@ -39,43 +59,29 @@ const randomClick = (clickDelay) => {
 const randomPosition = (target) => {
 	image.style.top = target.width + "px";
 	image.style.left = target.height + "px";
-}
+};
 
 image.addEventListener('click', e => {
-	console.log('hej');
+	let clickedTime = Date.now();
+	reactiontime = clickedTime - timer;
+	console.log(Date.now())
+	
+	let username = {
+        id: socket.id,
+        reactiontime,
+    }
 	socket.emit('user-click', username)
 	console.log('hej', username);
 })
 
-//create
-/*
-let start;
 
-
-function startNew() {
-	setTimeout(function() {
-		randomPosition();
-		start = Date.now();
-	}, Math.floor(Math.random() * 3000) + 1000);
-}
-*/
-// get username from form and emit `register-user`-event to server
 usernameForm.addEventListener('submit', e => {
 	e.preventDefault();
-/*
-	waiting = document.querySelector('#waiting');
-*/
+
 	username = document.querySelector('#username').value;
 	socket.emit('register-user', username, (status) => {
 		console.log("Server acknowledged the registration :D", status);
-/*
 
-		if(status.onlineUsers.length === 2) {
-			startNew();
-		} else {
-			waiting.innerHTML = `<h1> waiting for enemy <h1>`
-		}
-*/
 		if (status.joinChat) {
 			startEl.classList.add('hide');
 			waitingRoom.classList.remove('hide');
@@ -112,6 +118,8 @@ socket.on('user-click', (clickDelay) => {
 	randomClick(clickDelay)
 });
 
-
+socket.on('game-over', closeTheRoom);
+socket.on('update-score-board', updateScore);
 socket.on('create-game-page', showWaitingRoom);
+
 

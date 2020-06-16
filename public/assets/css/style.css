@@ -86,6 +86,14 @@ h1, h2, h3, h4, h5, h6 {
 	flex-grow: 1;
 }
 
+.info {
+	text-align: center;
+}
+
+#online-users {
+	border-bottom: 1px solid black;
+}
+
 #users {
 	flex-basis: 20%;
 	border: 1px solid black;
