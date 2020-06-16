@@ -55,20 +55,27 @@ function handleUserDisconnect() {
 }
 
 function randomPosition (range) {
-	return Math.floor(Math.random() * range)
+	return Math.floor(Math.random() * range);
 };
 
 function usersClick(username) {
 		console.log(username, "clicked")
-
+		
 		const click = {
 			width: randomPosition(500),
 			height: randomPosition(700)
 		}
+		
+		const delay = randomPosition(2000);
+		
+		const clickDelay = {
+			click,
+			delay,
+		};
 
 		// Emit new image
-		io.emit('user-click', click);
-}
+		io.emit('user-click', clickDelay);
+};
 
 function checkUsersOnline(socket) {
     if (Object.keys(users).length === 2) {

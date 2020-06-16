@@ -29,6 +29,13 @@ const updateOnlineUsers = (users) => {
 	document.querySelector('#online-users').innerHTML = users.map(user => `<li class="user">${user}</li>`).join("");
 }
 
+
+const randomClick = (clickDelay) => {
+	setTimeout(() => {
+		randomPosition(clickDelay.click)
+	}, clickDelay.delay);
+}
+
 const randomPosition = (target) => {
 	image.style.top = target.width + "px";
 	image.style.left = target.height + "px";
@@ -101,8 +108,8 @@ socket.on('user-disconnected', (username) => {
 	addNoticeToChat(`${username} left the chat 😢...`);
 });
 
-socket.on('user-click', (target) => {
-	randomPosition(target)
+socket.on('user-click', (clickDelay) => {
+	randomClick(clickDelay)
 });
 
 
