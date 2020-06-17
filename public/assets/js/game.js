@@ -6,6 +6,9 @@ const gamefield = document.querySelector('#game-field');
 const board = document.querySelector('#gamingboard');
 const image = document.getElementById('playimg');
 const waitingRoom = document.querySelector('#waiting');
+const gameOver = document.querySelector('#game-over');
+const scoreOver = document.querySelector('#game-score')
+
 
 let username = null;
 let timer = null;
@@ -29,12 +32,6 @@ const showWaitingRoom = () => {
     gamefield.classList.remove('hide');
 }
 
-//fixa
-const closeTheRoom = () => {
-    waitingRoom.classList.add('hide');
-    gamefield.classList.remove('hide');
-}
-
 const updateOnlineUsers = (users) => {
 	document.querySelector('#online-users').innerHTML = users.map(user => `<li class="user">${user}</li>`).join("");
 }
@@ -46,6 +43,16 @@ const updateScore = (scoreboard) => {
     }).join('');
 };
 
+//fixa
+const closeTheRoom = (scoreboard) => {
+	document.querySelector('#game-score').innerHTML = Object.entries(scoreboard).map(([key, value]) => {
+        console.log(`${key}: ${value}`)
+        return `<li class="list-item users">${key}: ${value}</li>`
+	}).join('');
+
+	gamefield.classList.add('hide');
+	gameOver.classList.remove('hide');
+}
 
 //
 

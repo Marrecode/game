@@ -25,14 +25,15 @@ function getOnlineUsers() {
 }
 
 //start new game
-function start(socket) {
-    console.log('creating one game from user: ', users[socket.id]);
-        
+function start(socket, id) {
+	scoreboard[gameTime.players[id]] = gameTime.score[id];
+	console.log('create a game ', users[socket.id]);
+	
     if (gameTime.playedRounds < 10) {
         socket.emit('get-available-space', socket.id);
         console.log('Played rounds: ', gameTime.playedRounds)
     } else {
-        io.emit('game-over', gameTime.players, gameTime.score);
+        io.emit('game-over', scoreboard);
         gameTime.playedRounds = 0;
     
         console.log("game over");
