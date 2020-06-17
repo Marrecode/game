@@ -39,7 +39,7 @@ const updateOnlineUsers = (users) => {
 const updateScore = (scoreboard) => {
     document.querySelector('#score').innerHTML = Object.entries(scoreboard).map(([key, value]) => {
         console.log(`${key}: ${value}`)
-        return `<li class="list-item users">${key}: ${value}</li>`
+        return `<li class="list-group-item users">${key}: ${value}</li>`
     }).join('');
 };
 
@@ -47,7 +47,7 @@ const updateScore = (scoreboard) => {
 const closeTheRoom = (scoreboard) => {
 	document.querySelector('#game-score').innerHTML = Object.entries(scoreboard).map(([key, value]) => {
         console.log(`${key}: ${value}`)
-        return `<li class="list-item users">${key}: ${value}</li>`
+        return `<li class="list-group-item users">${key}: ${value} points</li>`
 	}).join('');
 
 	gamefield.classList.add('hide');
@@ -81,7 +81,7 @@ image.addEventListener('click', e => {
 	console.log('hej', username);
 })
 
-restart.addEventListener('click', (e) => {
+restart.addEventListener('click', e => {
 	e.preventDefault();
 
 	gameOver.classList.add('hide');

@@ -5,7 +5,7 @@
 const debug = require('debug')('game:socket_controller');
 
 let io = null;
-const users = {};
+let users = {};
 
 let other = {};
 let targets = 0; 
@@ -26,17 +26,16 @@ function getOnlineUsers() {
 
 //start new game
 function start(socket, id) {
-	scoreboard[gameTime.players[id]] = gameTime.score[id];
 	console.log('create a game ', users[socket.id]);
 	
     if (gameTime.playedRounds < 10) {
-        socket.emit('get-available-space', socket.id);
         console.log('Played rounds: ', gameTime.playedRounds)
     } else {
+		scoreboard[gameTime.players[id]] = gameTime.score[id];
         io.emit('game-over', scoreboard);
         gameTime.playedRounds = 0;
-    
-        console.log("game over");
+		console.log("game over");
+		gameRestart();
         return;
     }
 
@@ -94,13 +93,24 @@ function compareReactionTimes(socket) {
         }
         return;
     }
-    debug('Score: ', gameTime.score);
+    gameTime.score;
     targets = 0;
     gameTime.playedRounds++;
  
     start(socket);
 };
 
+// Restart 
+const gameRestart = () => {
+	users = {};
+     gameTime = {
+		players: {},
+		playedRounds: 0,
+		score: {},
+		reaction: {}
+	}
+    scoreboard = {};
+}
 
 
 /**
@@ -110,10 +120,12 @@ function handleUserDisconnect() {
 	debug(`Socket ${this.id} left the chat :(`);
 
 	// broadcast to all connected sockets that this user has left the chat
-	if (users[this.id]) {
-		this.broadcast.emit('user-disconnected', users[this.id]);
-	}
-
+	if (gameTime.players[this.id]) {
+        if (users[this.id]) {
+            this.broadcast.emit('user-disconnected', users[this.id]);
+        }
+        gameRestart();
+    }
 	// remove user from list of connected users
 	delete users[this.id];
 }

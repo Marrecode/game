@@ -1,7 +1,14 @@
+body {
+	background-color: grey;
+}
+
 #app {
 	background-color: rgb(111, 119, 95);
 	height: 100vh;
-	width: 100vw;
+	width: 100%;
+	margin: 20px auto;
+	display: flex;
+  	justify-content: center;
 }
 
 .hide {
@@ -20,7 +27,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-	width: 300px;
+	width: 70%;
 }
 
 #start {
@@ -64,8 +71,8 @@ h1, h2, h3, h4, h5, h6 {
 
 #play {
 	background-color: #6a866a;
-	height: 550px;
-	width: 780px;
+	min-width: 600px;
+	min-height: 60vh;
 	position: relative;
 	margin: auto;
 }
@@ -75,6 +82,17 @@ h1, h2, h3, h4, h5, h6 {
 	position: absolute;
 	top: 200px;
 	left: 200px;
+}
+
+
+.container {
+	margin: auto;
+    text-align: center;
+    max-width: 800px;
+}
+
+ul {
+    list-style-type: none;
 }
 
 #chat .form-group {
@@ -95,8 +113,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #users {
+	background-color: rgb(111, 119, 95);
+	display: flex;
+	flex-direction: column;
 	flex-basis: 20%;
 	border: 1px solid black;
+	width: 100%;
 }
 
 #users h2 {
