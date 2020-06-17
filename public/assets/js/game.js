@@ -8,7 +8,7 @@ const image = document.getElementById('playimg');
 const waitingRoom = document.querySelector('#waiting');
 const gameOver = document.querySelector('#game-over');
 const scoreOver = document.querySelector('#game-score')
-
+const restart = document.querySelector('#restart')
 
 let username = null;
 let timer = null;
@@ -81,6 +81,12 @@ image.addEventListener('click', e => {
 	console.log('hej', username);
 })
 
+restart.addEventListener('click', (e) => {
+	e.preventDefault();
+
+	gameOver.classList.add('hide');
+    startEl.classList.remove('hide');
+})
 
 usernameForm.addEventListener('submit', e => {
 	e.preventDefault();
@@ -98,7 +104,6 @@ usernameForm.addEventListener('submit', e => {
 	});
 
 });
-
 
 
 socket.on('reconnect', () => {
