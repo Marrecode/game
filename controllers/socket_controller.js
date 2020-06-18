@@ -48,11 +48,11 @@ function randomPosition (range) {
 function usersClick(username) {
 	console.log(username, "clicked")
 		const click = {
-			width: randomPosition(500),
+			width: randomPosition(400),
 			height: randomPosition(700)
 		}
 		
-		const delay = randomPosition(2000);
+		const delay = randomPosition(3000);
 		
 		const clickDelay = {
 			click,
