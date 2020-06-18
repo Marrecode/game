@@ -121,8 +121,8 @@ function handleUserDisconnect() {
 
 	// broadcast to all connected sockets that this user has left the chat
 	if (gameTime.players[this.id]) {
-        if (users[this.id]) {
-            this.broadcast.emit('user-disconnected', users[this.id]);
+        if (gameTime.players[this.id]) {
+            this.broadcast.emit('user-disconnected', gameTime.players[this.id]);
         }
         gameRestart();
     }
